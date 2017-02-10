@@ -1,0 +1,116 @@
+/**
+ * Shop System Plugins - Terms of Use
+ *
+ * The plugins offered are provided free of charge by Wirecard Central Eastern Europe GmbH
+ * (abbreviated to Wirecard CEE) and are explicitly not part of the Wirecard CEE range of
+ * products and services.
+ *
+ * They have been tested and approved for full functionality in the standard configuration
+ * (status on delivery) of the corresponding shop system. They are under General Public
+ * License Version 2 (GPLv2) and can be used, developed and passed on to third parties under
+ * the same terms.
+ *
+ * However, Wirecard CEE does not provide any guarantee or accept any liability for any errors
+ * occurring when used in an enhanced, customized shop system configuration.
+ *
+ * Operation in an enhanced, customized configuration is at your own risk and requires a
+ * comprehensive test phase by the user of the plugin.
+ *
+ * Customers use the plugins at their own risk. Wirecard CEE does not guarantee their full
+ * functionality neither does Wirecard CEE assume liability for any disadvantages related to
+ * the use of the plugins. Additionally, Wirecard CEE does not guarantee the full functionality
+ * for customized shop systems or installed plugins of other vendors of plugins within the same
+ * shop system.
+ *
+ * Customers are responsible for testing the plugin's functionality before starting productive
+ * operation.
+ *
+ * By installing the plugin into the shop system the customer agrees to these terms of use.
+ * Please do not use the plugin if you do not agree to these terms of use!
+ */
+
+body {
+    color: #555;
+    font-family: "arimoregular", sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 15px;
+}
+
+input {
+    background-color: #fafafa;
+    border-color: #c6c6c6 #dadada #eaeaea;
+    border-radius: 2px;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    color: #999999;
+    height: 32px;
+    padding: 6px 5px;
+    vertical-align: middle;
+    width: 100%;
+}
+
+select {
+    background-color: #fafafa;
+    border-color: #c6c6c6 #dadada #eaeaea;
+    border-radius: 2px;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    color: #999999;
+    font-family: "arimoregular", sans-serif;
+    font-size: 13px;
+    padding: 5px 4px 5px 2px;
+    vertical-align: middle;
+}
+
+input[type="text"]:hover, input[type="password"]:hover, select:hover, textarea:hover {
+    background-color: #ffffff;
+    border-color: #c6c6c6 #dadada #eaeaea;
+    color: #666666;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, select:focus, textarea:focus {
+    background-color: #ffffff;
+    border-color: #659ec9 #70aedd #a8cfec;
+    color: #333333;
+    outline: 0 none;
+}
+
+label {
+    padding-top: 8px;
+    margin: 0;
+    width: 140px;
+}
+
+.fieldlabel {
+}
+
+.fieldrow {
+    margin-top: 5px;
+}
+
+.infobox {
+    clear: both;
+    float: none;
+    font-size: 12px;
+    padding: 3px 0 0 140px;
+}
+
+#cardholder {
+    width: 270px;
+}
+
+#pan {
+    width: 270px;
+}
+
+#cvc {
+    width: 80px;
+}
+
+#issueNumber {
+    width: 60px;
+}
+
