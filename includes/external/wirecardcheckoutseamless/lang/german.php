@@ -48,12 +48,12 @@ $lang_array = array(
 HTML
 ,
     'CONFIG_HEADING_TITLE' => 'Wirecard Checkout Seamless Konfiguration',
-    'BACKEND_HEADING_TITLE' => 'Wirecard Checkout Seamless Backend',
+    'BACKEND_HEADING_TITLE' => 'Wirecard Checkout Seamless Back-end',
     'TRANSFER_HEADING_TITLE' => 'Wirecard Checkout Seamless Auszahlung',
-    'SUPPORT_HEADING_TITLE' => 'Wirecard Checkout Seamless Supportanfrage',
+    'SUPPORT_HEADING_TITLE' => 'Wirecard Checkout Se amless Supportanfrage',
     'CONFIGURE' => 'Wirecard Checkout Seamless Einstellungen',
-    'CONFIGURATION_HELP' => "Achtung: Hier k&ouml;nnen nur die zahlungsmittelspezifischen Einstellungen gemacht werden! " .
-        "F&uuml;r die globalen Einstellungen, Backendoperationen sowie Anfrage an den Wirecard Support klicken Sie bitte hier: ",
+    'CONFIGURATION_HELP' => "Bitte beachten, dass die Einstellungen pro Zahlungsmittel vorgenommen werden. " .
+        "F&uuml;r globale Zahlungseinstellungen, Folgeoperationen und Wirecard-Supportanfragen klicken Sie hier: ",
     'ACTIVE' => 'Aktiv',
     'SORT_ORDER' => 'Anzeigereihenfolge',
     'ALLOWED' => 'Erlaubte Zonen',
@@ -61,8 +61,8 @@ HTML
     'ZONE' => 'Zahlungszone',
     'ZONE_DESC' => 'Wenn eine Zone ausgew&auml;hlt ist, gilt die Zahlungsmethode nur f&uuml;r diese Zone.',
     'MORE_INFORMATION' => 'Mehr Informationen',
-    'BASICDATA' => 'Zugangsdaten',
-    'OPTIONS' => 'Allgemeine Einstellungen',
+    'BASICDATA' => 'Erforderliche Einstellungen',
+    'OPTIONS' => 'Optionale Einstellungen',
     'CREDITCARDOPTIONS' => 'Kreditkartenoptionen',
     'CONFIG_SAVE' => 'Konfiguration speichern',
     'CONFIG_SUCCESS' => 'Konfiguration erfolgreich gespeichert!',

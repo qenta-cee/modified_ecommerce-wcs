@@ -147,11 +147,11 @@ class WirecardCheckoutSeamless
                 ),
                 array(
                     'name' => 'order_status_cancel',
-                    'label' => 'Status cancelled payment',
+                    'label' => 'Status canceled payment',
                     'type' => 'orderstatus',
                     'default' => 4,
                     'required' => true,
-                    'doc' => 'Order status for cancelled payments.'
+                    'doc' => 'Order status for canceled payments.'
                 ),
                 array(
                     'name' => 'order_status_failure',
