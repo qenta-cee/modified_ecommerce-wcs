@@ -50,7 +50,7 @@ HTML
     'CONFIG_HEADING_TITLE' => 'Wirecard Checkout Seamless Konfiguration',
     'BACKEND_HEADING_TITLE' => 'Wirecard Checkout Seamless Back-end',
     'TRANSFER_HEADING_TITLE' => 'Wirecard Checkout Seamless Auszahlung',
-    'SUPPORT_HEADING_TITLE' => 'Wirecard Checkout Se amless Supportanfrage',
+    'SUPPORT_HEADING_TITLE' => 'Wirecard Checkout Seamless Supportanfrage',
     'CONFIGURE' => 'Wirecard Checkout Seamless Einstellungen',
     'CONFIGURATION_HELP' => "Bitte beachten, dass die Einstellungen pro Zahlungsmittel vorgenommen werden. " .
         "F&uuml;r globale Zahlungseinstellungen, Folgeoperationen und Wirecard-Supportanfragen klicken Sie hier: ",
