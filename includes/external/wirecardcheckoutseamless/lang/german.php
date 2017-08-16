@@ -90,7 +90,7 @@ HTML
     'PAYOLUTION_CONSENT' => 'Mit der &Uuml;bermittlung der f&uuml;r die Abwicklung des Rechnungskaufes und einer Identit&auml;ts- und Bonit&auml;tspr&uuml;fung erforderlichen Daten an payolution bin ich einverstanden. Meine %s kann ich jederzeit mit Wirkung f&uuml;r die Zukunft widerrufen.',
     'CONSENT' => 'Einwilligung',
     'CONSENT_MSG' => 'Bitte akzeptieren Sie die Zustimmungserkl&auml;rung!',
-    'MIN_AGE_MESSAGE' => 'Sie m&uuml;ssen %d Jahre oder &auml;lter sein, um diese Zahlungsart verwenden zu d&uuml;rfen.',
+    'MIN_AGE_MESSAGE' => 'Sie m&uuml;ssen 18 Jahre oder &auml;lter sein, um diese Zahlungsart verwenden zu d&uuml;rfen.',
     'VOUCHER_ID' => 'Mein Gutscheincode',
     'GIROPAY_ACCOUNTOWNER' => 'Kontoinhaber',
     'GIROPAY_ACCOUNTNUMBER' => 'Kontonummer',

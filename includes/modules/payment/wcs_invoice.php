@@ -75,9 +75,8 @@ class wcs_invoice extends WirecardCheckoutSeamlessPayment
             $field = sprintf('<input type="text" class="wcs_invoice birthday mandatory" maxlength="10" data-wcs-fieldname="birthday" name="wcs_invoice_birthday" value="%s">',
                 $dob === null ? '' : $dob->format('m.d.Y'));
 
-            $jsMinage = json_encode($this->getMinAge());
             $jsCode = json_encode($this->code);
-            $jsMessage = json_encode($this->_seamless->getText('MIN_AGE_MESSAGE', $jsMinage));
+            $jsMessage = json_encode($this->_seamless->getText('MIN_AGE_MESSAGE'));
             $jsHasConsent = json_encode($hasConsent);
             $jsConsentMessage = json_encode($this->_seamless->getText('CONSENT_MSG'));
 
@@ -89,7 +88,7 @@ class wcs_invoice extends WirecardCheckoutSeamlessPayment
                 
                 var paymentCode = $jsCode;
                 var dateStr = this.find('.' + paymentCode + '.birthday').val();
-                var minAge = $jsMinage;
+                var minAge = 18;
                 var msg = '';
     
                 dateStr = dateStr.replace(/[.-]/g, '/');
@@ -213,24 +212,12 @@ HTML;
             'configuration_value' => 'EUR'
         );
 
-        $config['MIN_AGE'] = array(
-            'configuration_value' => '18'
-        );
-
         $config['AMOUNT_MIN'] = array(
             'configuration_value' => '10'
         );
 
         $config['AMOUNT_MAX'] = array(
             'configuration_value' => '3500'
-        );
-
-        $config['BASKETSIZE_MIN'] = array(
-            'configuration_value' => ''
-        );
-
-        $config['BASKETSIZE_MAX'] = array(
-            'configuration_value' => ''
         );
 
         return $config;
@@ -251,7 +238,8 @@ function wcs_invoice_cfg_pull_down_provider($provider, $key = '')
 
     $providers = array(
         array('id' => 'payolution', 'text' => 'Payolution'),
-        array('id' => 'ratepay', 'text' => 'RatePay')
+        array('id' => 'ratepay', 'text' => 'RatePay'),
+	    array('id' => 'wirecard', 'text' => 'Wirecard')
     );
 
     return xtc_draw_pull_down_menu($name, $providers, $provider);

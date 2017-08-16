@@ -613,16 +613,6 @@ class WirecardCheckoutSeamlessPayment
     }
 
     /**
-     * return min age, depends on the selected provider
-     *
-     * @return int
-     */
-    protected function getMinAge()
-    {
-        return $this->getConfigParam('provider') == 'payolution' ? 18 : (int)$this->getConfigParam('min_age');
-    }
-
-    /**
      * checks for invoice and installment, provider dependent
      *
      * @return bool
@@ -680,7 +670,7 @@ class WirecardCheckoutSeamlessPayment
         if ($bd !== null) {
             $diff = $bd->diff(new DateTime);
             $customerAge = $diff->format('%y');
-            if ($customerAge < $this->getMinAge()) {
+            if ($customerAge < 18) {
                 return false;
             }
         }
@@ -703,18 +693,6 @@ class WirecardCheckoutSeamlessPayment
 
         if (count($this->getAllowedBillingCountries())) {
             if (!in_array($order->billing['country']['iso_code_2'], $this->getAllowedBillingCountries())) {
-                return false;
-            }
-        }
-
-        if ($this->getBasketSizeMin()) {
-            if ($numItems < $this->getBasketSizeMin()) {
-                return false;
-            }
-        }
-
-        if ($this->getBasketSizeMax()) {
-            if ($numItems > $this->getBasketSizeMax()) {
                 return false;
             }
         }
@@ -798,27 +776,6 @@ class WirecardCheckoutSeamlessPayment
     {
         return (int)$this->getConfigParam('AMOUNT_MAX');
     }
-
-    /**
-     * return min order amount
-     *
-     * @return int
-     */
-    protected function getBasketSizeMin()
-    {
-        return (int)$this->getConfigParam('BASKETSIZE_MIN');
-    }
-
-    /**
-     * return max order amount
-     *
-     * @return int
-     */
-    protected function getBasketSizeMax()
-    {
-        return (int)$this->getConfigParam('BASKETSIZE_MAX');
-    }
-
 
     /**
      * deep compare of addresses

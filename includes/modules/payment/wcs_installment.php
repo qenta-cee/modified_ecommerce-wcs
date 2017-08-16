@@ -73,9 +73,8 @@ class wcs_installment extends WirecardCheckoutSeamlessPayment
         $field = sprintf('<input type="text" class="wcs_installment birthday mandatory" maxlength="10" data-wcs-fieldname="birthday" name="wcs_installment_birthday" value="%s">',
             $dob === null ? '' : $dob->format('m.d.Y'));
 
-        $jsMinage = json_encode($this->getMinAge());
         $jsCode = json_encode($this->code);
-        $jsMessage = json_encode($this->_seamless->getText('MIN_AGE_MESSAGE', $jsMinage));
+        $jsMessage = json_encode($this->_seamless->getText('MIN_AGE_MESSAGE'));
         $jsHasConsent = json_encode($hasConsent);
         $jsConsentMessage = json_encode($this->_seamless->getText('CONSENT_MSG'));
 
@@ -87,7 +86,7 @@ class wcs_installment extends WirecardCheckoutSeamlessPayment
                 
                 var paymentCode = $jsCode;
                 var dateStr = this.find('.' + paymentCode + '.birthday').val();
-                var minAge = $jsMinage;
+                var minAge = 18;
                 var msg = '';
     
                 dateStr = dateStr.replace(/[.-]/g, '/');
@@ -208,10 +207,6 @@ HTML;
 
         $config['CURRENCIES'] = array(
             'configuration_value' => 'EUR'
-        );
-
-        $config['MIN_AGE'] = array(
-            'configuration_value' => '18'
         );
 
         $config['AMOUNT_MIN'] = array(
