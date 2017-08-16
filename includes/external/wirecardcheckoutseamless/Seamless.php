@@ -38,8 +38,7 @@ ini_set('include_path',
 
 define('TABLE_PAYMENT_WCS', 'payment_wirecard_checkout_seamless');
 
-require_once(DIR_FS_EXTERNAL . 'wirecardcheckoutseamless/library/wirecardcee_autoload.php');
-require_once 'React/Promise/functions_include.php';
+require_once(DIR_FS_EXTERNAL . 'wirecardcheckoutseamless/library/autoload.php');
 
 require_once(DIR_FS_EXTERNAL . 'wirecardcheckoutseamless/Transaction.php');
 
