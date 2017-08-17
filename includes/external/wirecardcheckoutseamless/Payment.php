@@ -305,6 +305,21 @@ class WirecardCheckoutSeamlessPayment
             sprintf('<input type="hidden" id="%s_seamless" name="wcs-seamless" value="%d"/>', $this->code,
                 (int)$this->_hasSeamless),
         ];
+        if(isset($_SESSION['wcs-consumerDeviceId'])) {
+        	$consumerDeviceId = $_SESSION['wcs-consumerDeviceId'];
+        } else {
+        	$timestamp = microtime();
+        	$customerId = $this->_seamless->getConfigValue('customer_id');
+	        $consumerDeviceId = md5($customerId . "_" . $timestamp);
+        	$_SESSION['wcs-consumerDeviceId'] = $consumerDeviceId;
+        }
+        $ratepay = [
+        	sprintf('<script language="JavaScript">var di = {t:"%s",v:"WDWL",l:"Checkout"};</script>', htmlspecialchars($consumerDeviceId)),
+              sprintf('<script type="text/javascript" src="//d.ratepay.com/%s/di.js"></script>', htmlspecialchars($consumerDeviceId)),
+              sprintf('<noscript><link rel="stylesheet" type="text/css" href="//d.ratepay.com/di.css?t=%s&v=WDWL&l=Checkout"></noscript>', htmlspecialchars($consumerDeviceId)),
+              sprintf('<object type="application/x-shockwave-flash" data="//d.ratepay.com/WDWL/c.swf" width="0" height="0"><param name="movie" value="//d.ratepay.com/WDWL/c.swf" /><param name="flashvars" value="t=%s&v=WDWL"/><param name="AllowScriptAccess" value="always"/></object>', htmlspecialchars($consumerDeviceId)),
+	    ];
+        $hiddenInfos = array_merge($hiddenInfos, $ratepay);
 	    if (self::$dataStore === null) {
 		    self::$dataStore = $this->initDataStorage();
 		    if (self::$dataStore !== null) {
