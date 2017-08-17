@@ -48,7 +48,6 @@ class WirecardCheckoutSeamlessPayment
     protected $_forceSendAdditionalData = false;
     protected $_sendFinancialInstitution = false;
     protected $_logo;
-    protected $_logoWidth = '50px';
     protected $_hasSeamless = false;
 
     /**
@@ -132,7 +131,7 @@ class WirecardCheckoutSeamlessPayment
         $this->_logo = ($this->_logoFilename) ? '<img src="' . DIR_WS_EXTERNAL . 'wirecardcheckoutseamless/images/paymenttypes/' . $this->_logoFilename
             . '" alt="'
             . htmlspecialchars($this->constant("MODULE_PAYMENT_{$c}_TEXT_TITLE"))
-            . ' Logo" width="' . $this->_logoWidth . '"/>&nbsp;&nbsp;' : '';
+            . ' Logo" />&nbsp;&nbsp;' : '';
 
         $this->title = $this->_logo . $this->title;
         $this->title_frontend = $this->_logo . $this->title_checkout;
@@ -306,44 +305,35 @@ class WirecardCheckoutSeamlessPayment
             sprintf('<input type="hidden" id="%s_seamless" name="wcs-seamless" value="%d"/>', $this->code,
                 (int)$this->_hasSeamless),
         ];
+	    if (self::$dataStore === null) {
+		    self::$dataStore = $this->initDataStorage();
+		    if (self::$dataStore !== null) {
+			    array_push($hiddenInfos, sprintf('<script type="text/javascript" src="%s"></script>',
+					    self::$dataStore->getJavascriptUrl())
+			    );
+			    $_SESSION['wcs_storage_id'] = self::$dataStore->getStorageId();
+		    } else {
+			    return false;
+		    }
+	    }
 
+	    if (!self::$hasStylesheet) {
+		    array_push($hiddenInfos, sprintf('<link rel="stylesheet" type="text/css" href="%s"/>',
+				    xtc_href_link(DIR_WS_EXTERNAL . 'wirecardcheckoutseamless/css/stylesheet.css', '', 'SSL', false))
+		    );
+		    self::$hasStylesheet = true;
+	    }
+	    if (!self::$hasJavascript) {
+		    array_push($hiddenInfos, sprintf('<script type="text/javascript" src="%s"></script>',
+				    xtc_href_link(DIR_WS_EXTERNAL . 'wirecardcheckoutseamless/js/script.js', '', 'SSL', false))
+		    );
+		    self::$hasJavascript = true;
+	    }
         $fields[] = array(
             'title' => '',
             'field' => implode('', $hiddenInfos)
         );
 
-        if (self::$dataStore === null) {
-            self::$dataStore = $this->initDataStorage();
-            if (self::$dataStore !== null) {
-                $fields[] = array(
-                    'title' => '',
-                    'field' => sprintf('<script type="text/javascript" src="%s"></script>',
-                        self::$dataStore->getJavascriptUrl())
-                );
-
-                $_SESSION['wcs_storage_id'] = self::$dataStore->getStorageId();
-            } else {
-                return false;
-            }
-        }
-
-        if (!self::$hasStylesheet) {
-            $fields[] = array(
-                'title' => '',
-                'field' => sprintf('<link rel="stylesheet" type="text/css" href="%s"/>',
-                    xtc_href_link(DIR_WS_EXTERNAL . 'wirecardcheckoutseamless/css/stylesheet.css', '', 'SSL', false))
-            );
-            self::$hasStylesheet = true;
-        }
-
-        if (!self::$hasJavascript) {
-            $fields[] = array(
-                'title' => '',
-                'field' => sprintf('<script type="text/javascript" src="%s"></script>',
-                    xtc_href_link(DIR_WS_EXTERNAL . 'wirecardcheckoutseamless/js/script.js', '', 'SSL', false))
-            );
-            self::$hasJavascript = true;
-        }
         $info = $this->_logo;
         $info .= sprintf('<div class="errormessage" style="display: none;" id="%s_messagebox"></div>', $this->code);
         $c = strtoupper($this->code);
