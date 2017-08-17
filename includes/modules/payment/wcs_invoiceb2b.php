@@ -38,6 +38,7 @@ class wcs_invoiceb2b extends wcs_invoice
     protected $_defaultSortOrder = 61;
     protected $_logoFilename = 'invoiceb2b.png';
     protected $_b2b = true;
+	protected $_forceSendAdditionalData = true;
 
     public function pre_confirmation_check()
     {
@@ -110,8 +111,16 @@ class wcs_invoiceb2b extends wcs_invoice
      */
     public function forceSendingBasket()
     {
-        return true;
+	    return false;
     }
+
+	/**
+	 * @return bool
+	 */
+	public function forceSendingShippingData()
+	{
+		return false;
+	}
 
     /**
      * configuration array

@@ -37,6 +37,7 @@ class wcs_installment extends WirecardCheckoutSeamlessPayment
     protected $_defaultSortOrder = 210;
     protected $_paymenttype = WirecardCEE_Stdlib_PaymentTypeAbstract::INSTALLMENT;
     protected $_logoFilename = 'installment.png';
+	protected $_forceSendAdditionalData = true;
 
     /**
      * display additional input fields on payment page
@@ -156,8 +157,22 @@ HTML;
      */
     public function forceSendingBasket()
     {
+	    if($this->getConfigParam('PROVIDER') == 'payolution') {
+		    return false;
+	    }
         return true;
     }
+
+	/**
+	 * @return bool
+	 */
+	public function forceSendingShippingData()
+	{
+		if($this->getConfigParam('PROVIDER') == 'payolution') {
+			return false;
+		}
+		return true;
+	}
 
     /**
      * autodeposit is not allowed with this payment

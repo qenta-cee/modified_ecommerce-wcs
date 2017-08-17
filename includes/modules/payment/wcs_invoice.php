@@ -38,6 +38,7 @@ class wcs_invoice extends WirecardCheckoutSeamlessPayment
     protected $_paymenttype = WirecardCEE_Stdlib_PaymentTypeAbstract::INVOICE;
     protected $_logoFilename = 'invoice.png';
     protected $_b2b = false;
+	protected $_forceSendAdditionalData = true;
 
     /**
      * display additional input fields on payment page
@@ -159,7 +160,21 @@ HTML;
      */
     public function forceSendingBasket()
     {
+    	if($this->getConfigParam('PROVIDER') == 'payolution') {
+    		return false;
+	    }
         return true;
+    }
+
+	/**
+	 * @return bool
+	 */
+    public function forceSendingShippingData()
+    {
+	    if($this->getConfigParam('PROVIDER') == 'payolution') {
+		    return false;
+	    }
+	    return true;
     }
 
     /**

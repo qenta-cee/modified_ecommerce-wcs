@@ -670,7 +670,7 @@ class WirecardCheckoutSeamlessPayment
         if ($bd !== null) {
             $diff = $bd->diff(new DateTime);
             $customerAge = $diff->format('%y');
-            if ($customerAge < 18) {
+            if ($customerAge < $this->getMinAge()) {
                 return false;
             }
         }
@@ -828,6 +828,14 @@ class WirecardCheckoutSeamlessPayment
     {
         return false;
     }
+
+	/**
+	 * @return bool
+	 */
+	public function forceSendingShippingData()
+	{
+		return false;
+	}
 
     /**
      * whether automated deposit is allowed or not

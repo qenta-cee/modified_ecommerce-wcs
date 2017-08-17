@@ -1175,11 +1175,11 @@ class WirecardCheckoutSeamless
             $consumerData->setCompanyName($order->customer['company']);
         }
 
-        if ($payment->getForceSendingAdditionalData() || $this->getConfigValue('send_billingdata')) {
+        if ($payment->getForceSendingAdditionalData() || $this->getConfigValue('send_billingdata') ) {
             $consumerData->addAddressInformation($this->_getAddress($order, 'billing'));
         }
 
-        if ($payment->getForceSendingAdditionalData() || $this->getConfigValue('send_shippingdata')) {
+        if ($payment->forceSendingShippingData() || $this->getConfigValue('send_shippingdata')) {
             $consumerData->addAddressInformation($this->_getAddress($order, 'shipping'));
         }
 
