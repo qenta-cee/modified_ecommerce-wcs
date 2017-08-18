@@ -67,34 +67,46 @@ class wcs_installment extends WirecardCheckoutSeamlessPayment
             );
         }
 
-        $customer_id = $_SESSION['customer_id'];
+	    $field = '<input type="hidden" name="birthdate" class="wcs_installment birthday mandatory" data-wcs-fieldname="birthday" id="wcs-birthdate" value="" /><select style="width:30%;" name="days" id="wcs-inst-day" required><option value="0">-</option>';
+	    for($i = 1; $i <= 31; $i++) {
+		    $field .= '<option value = "' . $i . '">' . $i . '</option>';
+	    }
+	    $field .= '</select><select style="width:30%;" name="months" id="wcs-inst-month" required><option value="0">-</option>';
+	    for($i = 1; $i <= 12; $i++){
+		    $field .= '<option value="'. $i .'">'.$i.'</option>';
+	    }
+	    $years = range(date('Y'), date('Y') - 100);
+	    $field .= '</select><select style="width:30%;" name="years" id="wcs-inst-year" required><option value="0">-</option>';
+	    foreach ($years as $year) {
+		    $field .= '<option value="'.$year.'">'.$year.'</option>';
+	    }
+	    $field .='</select>';
 
-        $dob = $this->getCustomerDob($customer_id);
+	    $jsCode = json_encode($this->code);
+	    $jsMessage = json_encode($this->_seamless->getText('MIN_AGE_MESSAGE'));
+	    $jsHasConsent = json_encode($hasConsent);
+	    $jsConsentMessage = json_encode($this->_seamless->getText('CONSENT_MSG'));
 
-        $field = sprintf('<input type="text" class="wcs_installment birthday mandatory" maxlength="10" data-wcs-fieldname="birthday" name="wcs_installment_birthday" value="%s">',
-            $dob === null ? '' : $dob->format('m.d.Y'));
-
-        $jsCode = json_encode($this->code);
-        $jsMessage = json_encode($this->_seamless->getText('MIN_AGE_MESSAGE'));
-        $jsHasConsent = json_encode($hasConsent);
-        $jsConsentMessage = json_encode($this->_seamless->getText('CONSENT_MSG'));
-
-        $field .= <<<HTML
+	    $field .= <<<HTML
         <script type="text/javascript">
         $(function () {
              
             $.fn.wcsValidateInstallment = function (messageBox) {
-                
+            var m = $('#wcs-inst-month').val();
+            var d = $('#wcs-inst-day').val();
+            var dateStr = $('#wcs-inst-year').val() + '-' + m + '-' + d;
+            
                 var paymentCode = $jsCode;
-                var dateStr = this.find('.' + paymentCode + '.birthday').val();
+                this.find('.' + paymentCode + '.birthday').val(dateStr);
                 var minAge = 18;
                 var msg = '';
-    
-                dateStr = dateStr.replace(/[.-]/g, '/');
                     
                 if (!wcsValidateMinAge(dateStr, minAge)) {
                     msg = $jsMessage;
-                    messageBox.append('<p>' + msg + '</p>');
+                    messageBox.append('<p class="invoice-installment">' + msg + '</p>');
+                } else {
+                    msg = '';
+                    messageBox.empty();
                 }
     
                 if ($jsHasConsent)
@@ -230,14 +242,6 @@ HTML;
 
         $config['AMOUNT_MAX'] = array(
             'configuration_value' => '3500'
-        );
-
-        $config['BASKETSIZE_MIN'] = array(
-            'configuration_value' => ''
-        );
-
-        $config['BASKETSIZE_MAX'] = array(
-            'configuration_value' => ''
         );
 
         return $config;

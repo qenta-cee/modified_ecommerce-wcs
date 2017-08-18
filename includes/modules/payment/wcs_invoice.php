@@ -69,12 +69,21 @@ class wcs_invoice extends WirecardCheckoutSeamlessPayment
         }
 
         if (!$this->_b2b) {
-            $customer_id = $_SESSION['customer_id'];
 
-            $dob = $this->getCustomerDob($customer_id);
-
-            $field = sprintf('<input type="text" class="wcs_invoice birthday mandatory" maxlength="10" data-wcs-fieldname="birthday" name="wcs_invoice_birthday" value="%s">',
-                $dob === null ? '' : $dob->format('m.d.Y'));
+	        $field = '<input type="hidden" name="birthdate" class="wcs_invoice birthday mandatory" data-wcs-fieldname="birthday" id="wcs-birthdate" value="" /><select style="width:30%;" name="days" id="wcs-day" required><option value="0">-</option>';
+	        for($i = 1; $i <= 31; $i++) {
+	        	$field .= '<option value = "' . $i . '">' . $i . '</option>';
+	        }
+	        $field .= '</select><select style="width:30%;" name="months" id="wcs-month" required><option value="0">-</option>';
+            for($i = 1; $i <= 12; $i++){
+            	$field .= '<option value="'. $i .'">'.$i.'</option>';
+            }
+	        $years = range(date('Y'), date('Y') - 100);
+            $field .= '</select><select style="width:30%;" name="years" id="wcs-year" required><option value="0">-</option>';
+            foreach ($years as $year) {
+            	$field .= '<option value="'.$year.'">'.$year.'</option>';
+            }
+            $field .='</select>';
 
             $jsCode = json_encode($this->code);
             $jsMessage = json_encode($this->_seamless->getText('MIN_AGE_MESSAGE'));
@@ -86,17 +95,21 @@ class wcs_invoice extends WirecardCheckoutSeamlessPayment
         $(function () {
              
             $.fn.wcsValidateInvoice = function (messageBox) {
-                
+            var m = $('#wcs-month').val();
+            var d = $('#wcs-day').val();
+            var dateStr = $('#wcs-year').val() + '-' + m + '-' + d;
+            
                 var paymentCode = $jsCode;
-                var dateStr = this.find('.' + paymentCode + '.birthday').val();
+                this.find('.' + paymentCode + '.birthday').val(dateStr);
                 var minAge = 18;
                 var msg = '';
-    
-                dateStr = dateStr.replace(/[.-]/g, '/');
                     
                 if (!wcsValidateMinAge(dateStr, minAge)) {
                     msg = $jsMessage;
-                    messageBox.append('<p>' + msg + '</p>');
+                    messageBox.append('<p class="invoice-installment">' + msg + '</p>');
+                } else {
+                    msg = '';
+                    messageBox.empty();
                 }
     
                 if ($jsHasConsent)
