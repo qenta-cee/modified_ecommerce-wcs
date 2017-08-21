@@ -38,7 +38,7 @@ var wcsValidateMinAge =function (dob, minage) {
     var today = new Date();
     var limit = new Date((today.getFullYear() - minage), today.getMonth(), today.getDate());
 
-    return birthdate < limit;
+    return birthdate <= limit;
 };
 
 $(function () {
