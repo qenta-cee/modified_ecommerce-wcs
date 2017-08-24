@@ -38,8 +38,7 @@ ini_set('include_path',
 
 define('TABLE_PAYMENT_WCS', 'payment_wirecard_checkout_seamless');
 
-require_once(DIR_FS_EXTERNAL . 'wirecardcheckoutseamless/library/wirecardcee_autoload.php');
-require_once 'React/Promise/functions_include.php';
+require_once(DIR_FS_EXTERNAL . 'wirecardcheckoutseamless/library/autoload.php');
 
 require_once(DIR_FS_EXTERNAL . 'wirecardcheckoutseamless/Transaction.php');
 
@@ -54,7 +53,7 @@ class WirecardCheckoutSeamless
     /**
      * @var string
      */
-    protected $_pluginversion = '1.0.0';
+    protected $_pluginversion = '1.0.1';
 
     /**
      * available config params
@@ -147,11 +146,11 @@ class WirecardCheckoutSeamless
                 ),
                 array(
                     'name' => 'order_status_cancel',
-                    'label' => 'Status cancelled payment',
+                    'label' => 'Status canceled payment',
                     'type' => 'orderstatus',
                     'default' => 4,
                     'required' => true,
-                    'doc' => 'Order status for cancelled payments.'
+                    'doc' => 'Order status for canceled payments.'
                 ),
                 array(
                     'name' => 'order_status_failure',
@@ -286,7 +285,7 @@ class WirecardCheckoutSeamless
                     'name' => 'displaycardholder',
                     'label' => 'Display card holder field',
                     'type' => 'onoff',
-                    'default' => 0,
+                    'default' => 1,
                     'doc' => 'Display input field to enter the card holder name in your credit card form during the checkout process.',
                 ),
                 array(
@@ -298,7 +297,7 @@ class WirecardCheckoutSeamless
                 array(
                     'name' => 'displaycvc',
                     'label' => 'Display CVC field',
-                    'default' => 0,
+                    'default' => 1,
                     'type' => 'onoff',
                     'doc' => 'Display input field to enter the CVC in your credit card form during the checkout process.',
                 ),
@@ -723,6 +722,10 @@ class WirecardCheckoutSeamless
             ->createConsumerMerchantCrmId($order->customer['email_address']);
 
         $init->modifiedWcsTxid = $txId;
+	    if(isset($_SESSION['wcs-consumerDeviceId'])){
+	    	$init->consumerDeviceId = $_SESSION['wcs-consumerDeviceId'];
+	    	unset($_SESSION['wcs-consumerDeviceId']);
+	    }
 
         if ($payment->forceSendingBasket() || $this->getConfigValue('send_basketinformation')) {
             $init->setBasket($this->getBasket($order));
@@ -1110,8 +1113,8 @@ class WirecardCheckoutSeamless
             $item = new WirecardCEE_Stdlib_Basket_Item('shipping');
             $item->setDescription($order->info['shipping_method'])
                 ->setName('Shipping')
-                ->setUnitGrossAmount(number_format($order->info['pp_shipping'], $decimalPlaces, '.', ''))
-                ->setUnitNetAmount(number_format($order->info['pp_tax'], $decimalPlaces, '.', ''))
+                ->setUnitGrossAmount(number_format($order->info['pp_tax'], $decimalPlaces, '.', ''))
+                ->setUnitNetAmount(number_format($order->info['pp_shipping'], $decimalPlaces, '.', ''))
                 ->setUnitTaxAmount($item->getUnitGrossAmount() - $item->getUnitNetAmount())
                 ->setUnitTaxRate(number_format($shipping_tax_rate, 3, '.', ''));
 
@@ -1176,11 +1179,11 @@ class WirecardCheckoutSeamless
             $consumerData->setCompanyName($order->customer['company']);
         }
 
-        if ($payment->getForceSendingAdditionalData() || $this->getConfigValue('send_billingdata')) {
+        if ($payment->getForceSendingAdditionalData() || $this->getConfigValue('send_billingdata') ) {
             $consumerData->addAddressInformation($this->_getAddress($order, 'billing'));
         }
 
-        if ($payment->getForceSendingAdditionalData() || $this->getConfigValue('send_shippingdata')) {
+        if ($payment->forceSendingShippingData() || $this->getConfigValue('send_shippingdata')) {
             $consumerData->addAddressInformation($this->_getAddress($order, 'shipping'));
         }
 

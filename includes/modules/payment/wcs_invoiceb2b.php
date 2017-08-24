@@ -38,6 +38,7 @@ class wcs_invoiceb2b extends wcs_invoice
     protected $_defaultSortOrder = 61;
     protected $_logoFilename = 'invoiceb2b.png';
     protected $_b2b = true;
+	protected $_forceSendAdditionalData = true;
 
     public function pre_confirmation_check()
     {
@@ -91,17 +92,6 @@ class wcs_invoiceb2b extends wcs_invoice
                 return false;
             }
         }
-        if ($this->getBasketSizeMin()) {
-            if ($numItems < $this->getBasketSizeMin()) {
-                return false;
-            }
-        }
-
-        if ($this->getBasketSizeMax()) {
-            if ($numItems > $this->getBasketSizeMax()) {
-                return false;
-            }
-        }
 
         if ($this->getAmountMin() && $this->getAmountMin() > $amount) {
             return false;
@@ -121,8 +111,16 @@ class wcs_invoiceb2b extends wcs_invoice
      */
     public function forceSendingBasket()
     {
-        return true;
+	    return false;
     }
+
+	/**
+	 * @return bool
+	 */
+	public function forceSendingShippingData()
+	{
+		return false;
+	}
 
     /**
      * configuration array
@@ -170,14 +168,6 @@ class wcs_invoiceb2b extends wcs_invoice
 
         $config['AMOUNT_MAX'] = array(
             'configuration_value' => '3500'
-        );
-
-        $config['BASKETSIZE_MIN'] = array(
-            'configuration_value' => ''
-        );
-
-        $config['BASKETSIZE_MAX'] = array(
-            'configuration_value' => ''
         );
 
         return $config;

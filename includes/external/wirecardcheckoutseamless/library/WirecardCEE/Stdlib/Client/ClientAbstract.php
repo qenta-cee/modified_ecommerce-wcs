@@ -315,14 +315,6 @@ abstract class WirecardCEE_Stdlib_Client_ClientAbstract
         return (array) $this->_requestData;
     }
 
-    /**
-     * Destructor
-     */
-    public function __destruct()
-    {
-        unset( $this );
-    }
-
     /**************************
      *   PROTECTED METHODS    *
      **************************/
@@ -409,14 +401,12 @@ abstract class WirecardCEE_Stdlib_Client_ClientAbstract
     {
         $httpClient = $this->_getHttpClient();
 
-        $request = $httpClient->post($this->_getRequestUrl(), array(
-            'body' => $this->_requestData,
-            'headers'     => array(
+        $request = $httpClient->post($this->_getRequestUrl(), [
+            'form_params' => $this->_requestData,
+            'headers'     => [
                 'User-Agent' => $this->getUserAgentString()
-            )
-        ));
-        
-        
+            ]
+        ]);
 
         return $request;
     }

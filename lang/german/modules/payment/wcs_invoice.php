@@ -33,9 +33,12 @@
 define('MODULE_PAYMENT_WCS_INVOICE_TEXT_TITLE', 'Kauf auf Rechnung');
 define('MODULE_PAYMENT_WCS_INVOICE_TITLE', 'Wirecard Checkout Seamless Kauf auf Rechnung');
 define('MODULE_PAYMENT_WCS_INVOICE_PROVIDER_TITLE', 'Provider');
+define('MODULE_PAYMENT_WCS_INVOICE_PROVIDER_DESC', 'Wählen Sie ihren Kauf auf Rechnung Provider');
 
 define('MODULE_PAYMENT_WCS_INVOICE_AMOUNT_MIN_TITLE', 'Bestellung Minimalbetrag');
+define('MODULE_PAYMENT_WCS_INVOICE_AMOUNT_MIN_DESC', '');
 define('MODULE_PAYMENT_WCS_INVOICE_AMOUNT_MAX_TITLE', 'Bestellung Maximalbetrag');
+define('MODULE_PAYMENT_WCS_INVOICE_AMOUNT_MAX_DESC', '');
 define('MODULE_PAYMENT_WCS_INVOICE_BILLING_COUNTRIES_TITLE', 'Erlaubte L&auml;nder Rechnung');
 define('MODULE_PAYMENT_WCS_INVOICE_BILLING_COUNTRIES_DESC', 'Kommasepariert, z.B. AT,DE');
 
@@ -43,6 +46,7 @@ define('MODULE_PAYMENT_WCS_INVOICE_SHIPPING_COUNTRIES_TITLE', 'Erlaubte L&auml;n
 define('MODULE_PAYMENT_WCS_INVOICE_SHIPPING_COUNTRIES_DESC', 'Kommasepariert, z.B. AT,DE');
 
 define('MODULE_PAYMENT_WCS_INVOICE_BILLINGSHIPPING_SAME_TITLE', 'Rechnungs/Versandadresse m&uuml;ssen ident sein');
+define('MODULE_PAYMENT_WCS_INVOICE_BILLINGSHIPPING_SAME_DESC', '');
 define('MODULE_PAYMENT_WCS_INVOICE_PAYOLUTION_MID_TITLE', 'payolution mID');
 define('MODULE_PAYMENT_WCS_INVOICE_PAYOLUTION_MID_DESC', 'Ihre payolution H&auml;ndler ID, nicht-base64-encoded.');
 
@@ -56,5 +60,3 @@ define('MODULE_PAYMENT_WCS_INVOICE_CURRENCIES_DESC', 'Kommasepariert, z.B. EUR,U
 define('MODULE_PAYMENT_WCS_INVOICE_MIN_AGE_TITLE', 'Minimalalter des Konsumenten');
 define('MODULE_PAYMENT_WCS_INVOICE_MIN_AGE_DESC', 'Nur f&uuml;r RatePay relevant.');
 
-define('MODULE_PAYMENT_WCS_INVOICE_BASKETSIZE_MIN_TITLE', 'Minimale Warenkorbgr&ouml;&szlig;e');
-define('MODULE_PAYMENT_WCS_INVOICE_BASKETSIZE_MAX_TITLE', 'Maximale Warenkorbgr&ouml;&szlig;e');

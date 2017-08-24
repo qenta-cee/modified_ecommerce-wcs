@@ -1,8 +1,10 @@
 # Wirecard Checkout Seamless plugin for modified eCommerce
 
 [![License](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://raw.githubusercontent.com/wirecard/modified_ecommerce-wcs/master/LICENSE)
-[![modified eCommerce](https://img.shields.io/badge/modified eCommerce-v2.0.2.1-green.svg)](http://www.modified-shop.org/)
+[![modified eCommerce](https://img.shields.io/badge/modifiedECommerce-v2.0.2.2-green.svg)](http://www.modified-shop.org/)
 [![PHP v5.6](https://img.shields.io/badge/php-v5.6-yellow.svg)](http://www.php.net)
+[![PHP v7.0](https://img.shields.io/badge/php-v7.0-yellow.svg)](http://www.php.net)
+[![PHP v7.1](https://img.shields.io/badge/php-v7.1-yellow.svg)](http://www.php.net)
 
 Wirecard Checkout Seamless plugin for modified eCommerce.
 

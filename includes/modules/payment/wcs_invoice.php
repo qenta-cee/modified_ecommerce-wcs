@@ -38,6 +38,7 @@ class wcs_invoice extends WirecardCheckoutSeamlessPayment
     protected $_paymenttype = WirecardCEE_Stdlib_PaymentTypeAbstract::INVOICE;
     protected $_logoFilename = 'invoice.png';
     protected $_b2b = false;
+	protected $_forceSendAdditionalData = true;
 
     /**
      * display additional input fields on payment page
@@ -68,16 +69,24 @@ class wcs_invoice extends WirecardCheckoutSeamlessPayment
         }
 
         if (!$this->_b2b) {
-            $customer_id = $_SESSION['customer_id'];
 
-            $dob = $this->getCustomerDob($customer_id);
+	        $field = '<input type="hidden" name="birthdate" class="wcs_invoice birthday mandatory" data-wcs-fieldname="birthday" id="wcs-birthdate" value="" /><select style="width:30%;" name="days" id="wcs-day" required><option value="0">-</option>';
+	        for($i = 1; $i <= 31; $i++) {
+	        	$field .= '<option value = "' . $i . '">' . $i . '</option>';
+	        }
+	        $field .= '</select><select style="width:30%;" name="months" id="wcs-month" required><option value="0">-</option>';
+            for($i = 1; $i <= 12; $i++){
+            	$field .= '<option value="'. $i .'">'.$i.'</option>';
+            }
+	        $years = range(date('Y'), date('Y') - 100);
+            $field .= '</select><select style="width:30%;" name="years" id="wcs-year" required><option value="0">-</option>';
+            foreach ($years as $year) {
+            	$field .= '<option value="'.$year.'">'.$year.'</option>';
+            }
+            $field .='</select>';
 
-            $field = sprintf('<input type="text" class="wcs_invoice birthday mandatory" maxlength="10" data-wcs-fieldname="birthday" name="wcs_invoice_birthday" value="%s">',
-                $dob === null ? '' : $dob->format('m.d.Y'));
-
-            $jsMinage = json_encode($this->getMinAge());
             $jsCode = json_encode($this->code);
-            $jsMessage = json_encode($this->_seamless->getText('MIN_AGE_MESSAGE', $jsMinage));
+            $jsMessage = json_encode($this->_seamless->getText('MIN_AGE_MESSAGE'));
             $jsHasConsent = json_encode($hasConsent);
             $jsConsentMessage = json_encode($this->_seamless->getText('CONSENT_MSG'));
 
@@ -86,17 +95,21 @@ class wcs_invoice extends WirecardCheckoutSeamlessPayment
         $(function () {
              
             $.fn.wcsValidateInvoice = function (messageBox) {
-                
+            var m = $('#wcs-month').val();
+            var d = $('#wcs-day').val();
+            var dateStr = $('#wcs-year').val() + '-' + m + '-' + d;
+            
                 var paymentCode = $jsCode;
-                var dateStr = this.find('.' + paymentCode + '.birthday').val();
-                var minAge = $jsMinage;
+                this.find('.' + paymentCode + '.birthday').val(dateStr);
+                var minAge = 18;
                 var msg = '';
-    
-                dateStr = dateStr.replace(/[.-]/g, '/');
                     
                 if (!wcsValidateMinAge(dateStr, minAge)) {
                     msg = $jsMessage;
-                    messageBox.append('<p>' + msg + '</p>');
+                    messageBox.append('<p class="invoice-installment">' + msg + '</p>');
+                } else {
+                    msg = '';
+                    messageBox.empty();
                 }
     
                 if ($jsHasConsent)
@@ -160,7 +173,21 @@ HTML;
      */
     public function forceSendingBasket()
     {
+    	if($this->getConfigParam('PROVIDER') == 'payolution') {
+    		return false;
+	    }
         return true;
+    }
+
+	/**
+	 * @return bool
+	 */
+    public function forceSendingShippingData()
+    {
+	    if($this->getConfigParam('PROVIDER') == 'payolution') {
+		    return false;
+	    }
+	    return true;
     }
 
     /**
@@ -213,24 +240,12 @@ HTML;
             'configuration_value' => 'EUR'
         );
 
-        $config['MIN_AGE'] = array(
-            'configuration_value' => '18'
-        );
-
         $config['AMOUNT_MIN'] = array(
             'configuration_value' => '10'
         );
 
         $config['AMOUNT_MAX'] = array(
             'configuration_value' => '3500'
-        );
-
-        $config['BASKETSIZE_MIN'] = array(
-            'configuration_value' => ''
-        );
-
-        $config['BASKETSIZE_MAX'] = array(
-            'configuration_value' => ''
         );
 
         return $config;
@@ -251,7 +266,8 @@ function wcs_invoice_cfg_pull_down_provider($provider, $key = '')
 
     $providers = array(
         array('id' => 'payolution', 'text' => 'Payolution'),
-        array('id' => 'ratepay', 'text' => 'RatePay')
+        array('id' => 'ratepay', 'text' => 'RatePay'),
+	    array('id' => 'wirecard', 'text' => 'Wirecard')
     );
 
     return xtc_draw_pull_down_menu($name, $providers, $provider);

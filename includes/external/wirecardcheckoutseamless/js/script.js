@@ -29,7 +29,18 @@
  * Please do not use the plugin if you do not agree to these terms of use!
  */
 
-var wcsValidateMinAge;
+var wcsValidateMinAge =function (dob, minage) {
+    if (!minage)
+        return true;
+
+    var birthdate = new Date(dob);
+    var year = birthdate.getFullYear();
+    var today = new Date();
+    var limit = new Date((today.getFullYear() - minage), today.getMonth(), today.getDate());
+
+    return birthdate <= limit;
+};
+
 $(function () {
 
     var wirecardCheckoutSeamlessStore = function (data, messageContainer, onSuccess, onError) {
@@ -79,21 +90,6 @@ $(function () {
         }
 
         return result;
-    };
-
-    wcsValidateMinAge = function (dob, minage) {
-        if (!minage)
-            return true;
-
-        var birthdate = new Date(dob);
-        var year = birthdate.getFullYear();
-        var today = new Date();
-        if (year <= 1899 || year >= today.getFullYear() + 1) {
-            return false;
-        }
-
-        var limit = new Date((today.getFullYear() - minage), today.getMonth(), today.getDate());
-        return birthdate < limit;
     };
 
     var paymentform = $('#checkout_payment');

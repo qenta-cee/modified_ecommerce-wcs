@@ -33,9 +33,12 @@
 define('MODULE_PAYMENT_WCS_INVOICE_TEXT_TITLE', 'Invoice');
 define('MODULE_PAYMENT_WCS_INVOICE_TITLE', 'Wirecard Checkout Seamless Invoice');
 define('MODULE_PAYMENT_WCS_INVOICE_PROVIDER_TITLE', 'Provider');
+define('MODULE_PAYMENT_WCS_INVOICE_PROVIDER_DESC', 'Choose your Invoice provider');
 
 define('MODULE_PAYMENT_WCS_INVOICE_AMOUNT_MIN_TITLE', 'Order minimum amount');
+define('MODULE_PAYMENT_WCS_INVOICE_AMOUNT_MIN_DESC', '');
 define('MODULE_PAYMENT_WCS_INVOICE_AMOUNT_MAX_TITLE', 'Order maximum amount');
+define('MODULE_PAYMENT_WCS_INVOICE_AMOUNT_MAX_DESC', '');
 
 define('MODULE_PAYMENT_WCS_INVOICE_BILLING_COUNTRIES_TITLE', 'Allowed billing countries');
 define('MODULE_PAYMENT_WCS_INVOICE_BILLING_COUNTRIES_DESC', 'Comma separated, e.g. AT,DE');
@@ -44,6 +47,7 @@ define('MODULE_PAYMENT_WCS_INVOICE_SHIPPING_COUNTRIES_TITLE', 'Allowed shipping 
 define('MODULE_PAYMENT_WCS_INVOICE_SHIPPING_COUNTRIES_DESC', 'Comma separated, e.g. AT,DE');
 
 define('MODULE_PAYMENT_WCS_INVOICE_BILLINGSHIPPING_SAME_TITLE', 'Billing/shipping address must be identical');
+define('MODULE_PAYMENT_WCS_INVOICE_BILLINGSHIPPING_SAME_DESC', '');
 define('MODULE_PAYMENT_WCS_INVOICE_PAYOLUTION_MID_TITLE', 'payolution mID');
 define('MODULE_PAYMENT_WCS_INVOICE_PAYOLUTION_MID_DESC', 'Your payolution merchant ID, non-base64-encoded.');
 
@@ -57,5 +61,3 @@ define('MODULE_PAYMENT_WCS_INVOICE_CURRENCIES_DESC', 'Comma separated, e.g. EUR,
 define('MODULE_PAYMENT_WCS_INVOICE_MIN_AGE_TITLE', 'Consumer minimum age');
 define('MODULE_PAYMENT_WCS_INVOICE_MIN_AGE_DESC', 'Only applicable for RatePay.');
 
-define('MODULE_PAYMENT_WCS_INVOICE_BASKETSIZE_MIN_TITLE', 'Minimum basket size');
-define('MODULE_PAYMENT_WCS_INVOICE_BASKETSIZE_MAX_TITLE', 'Maximum basket size');
