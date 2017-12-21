@@ -245,7 +245,11 @@ class WirecardCheckoutSeamlessPayment
                     false));
             }
 
-            return $initResponse->getRedirectUrl();
+            if ($this->_paymenttype == WirecardCEE_Stdlib_PaymentTypeAbstract::SOFORTUEBERWEISUNG) {
+                xtc_redirect($initResponse->getRedirectUrl());
+            } else {
+                return $initResponse->getRedirectUrl();
+            }
         } catch (Exception $e) {
             $this->_seamless->log(__METHOD__ . ':' . $e->getMessage());
             $_SESSION['wcs_error_message'] = $this->_seamless->getText('frontend_initerror');
