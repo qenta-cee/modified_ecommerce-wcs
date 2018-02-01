@@ -53,7 +53,7 @@ class WirecardCheckoutSeamless
     /**
      * @var string
      */
-    protected $_pluginversion = '1.0.3';
+    protected $_pluginversion = '1.0.4';
 
     /**
      * available config params
