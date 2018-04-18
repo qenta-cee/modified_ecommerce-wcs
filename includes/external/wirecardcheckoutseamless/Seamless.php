@@ -53,7 +53,7 @@ class WirecardCheckoutSeamless
     /**
      * @var string
      */
-    protected $_pluginversion = '1.0.5';
+    protected $_pluginversion = '1.0.6';
 
     /**
      * available config params
@@ -886,7 +886,7 @@ class WirecardCheckoutSeamless
                 'responseFingerprintOrder'
             ));
 
-            xtc_db_query("update " . TABLE_ORDERS . " set comments = '". trim(print_r($order->info['comments'] . $message, true), ';') ."' where orders_id = '". $orders_id ."'");
+            $this->log(__METHOD__ . ':response-data:' .$message);
 
             $this->log(__METHOD__ . ':order-creation:' . $this->getConfigValue('order_creation') .
                 ' order-id:' . $order->info['orders_id'] .
